@@ -1,0 +1,81 @@
+befor Ver:10, in folder of Old_UserDefine_Version, usually defined on ver4,ver5
+[ver11]
+	[date] 2013/06/01
+	[modify]_ee_uint_CELL_OV_VOLTAGE_FOR_SOC to CELL_OV_VOLTAGE_FOR_SOC
+	[modify]_ee_uint_CELL_UV_VOLTAGE_FOR_SOC to CELL_UV_VOLTAGE_FOR_SOC
+	[add] _ee_ulong_ADC_AccQ_FOR_DSG_TH	
+[ver12]
+	[date] 2013/06/01
+	[modify] _ee_uint_CAPACITY_DIFFERENCE_VALUES 10 to 1
+
+[ver13]
+	[date] 2013/06/26
+	[add] Enter_Auto_Sleeping_ADC_Vol_Condition	27.3V; unit: mV; for 7S Cell = 24V
+	[add] Enter_Auto_Sleeping_ADC_Vol_Condition	39.0V; unit: mV; for 10S Cell = 36V
+	[add] Enter_Auto_Sleeping_ADC_Vol_Condition	50.7V; unit: mV; for 13S Cell = 48V
+
+[ver14]
+	[date] 2013/07/17
+	[modify] _ee_uint_RESERVED_FOR_OFFSET2 to _ee_uchar_SystemSetting_Info_Byte1 and _ee_uchar_SystemSetting_Info_Byte2
+	[modify] _ee_uchar_RESERVED_FOR_OFFSET1 to _ee_uchar_SystemSetting_Info_Byte3
+[ver15]
+	[date] 2013/07/22
+	[modify] _ee_uint_RESERVED_NoUsed__User_Define_FOR_OFFSET1 to _ee_uint_Last_Record_FCC_mAh_RECORD_EEPROM
+[ver16]
+	[date] 2013/08/01
+	[add]Dynamic_UVP_ADC_TEMP_TH1	2992      // 0 Celcius; unit: mV;
+	[add]Dynamic_UVP_ADC_TEMP_TH2	2436      // 15 Celcius; unit: mV;
+	[add]Dynamic_UVP_ADC_TEMP_TH3	2048      // 25 Celcius; unit: mV;
+	[add]Dynamic_UVP_ADC_BATTERY_Vol_TH1	1843	// 28V(cell:2.8); unit: 1mV; UVP < Dynamic_UVP_ADC_TEMP_TH1
+	[add]Dynamic_UVP_ADC_BATTERY_Vol_TH2	1909	// 29V(cell:2.9); unit: 1mV; Dynamic_UVP_ADC_TEMP_TH1 <= UVP < Dynamic_UVP_ADC_TEMP_TH2
+	[add]Dynamic_UVP_ADC_BATTERY_Vol_TH3	1975	// 30V(cell:3.0); unit: 1mV; Dynamic_UVP_ADC_TEMP_TH2 <= UVP < Dynamic_UVP_ADC_TEMP_TH3
+	[add]Dynamic_UVP_ADC_BATTERY_Vol_TH4	1975	// 30V(cell:3.0); unit: 1mV; UVP > Dynamic_UVP_ADC_TEMP_TH3
+
+[ver17]
+	[date] 2013/08/13
+	[modify] _ee_uint_CHARGING_IN_HIGH_TEMP_HOURS_TIMES_RECORD_EEPROM to _ee_uint_CHARGING_IN_HIGH_TEMP_MINUTES_TIMES_RECORD_EEPROM
+	[modify] _ee_uint_CHARGING_IN_LOW_TEMP_HOURS_TIMES_RECORD_EEPROM to _ee_uint_CHARGING_IN_LOW_TEMP_MINUTES_TIMES_RECORD_EEPROM
+	[modify] _ee_uint_CHG_OVER_VOLTAGE_HOURS_TIMES_RECORD_EEPROM to _ee_uint_CHG_OVER_VOLTAGE_MINUTES_TIMES_RECORD_EEPROM
+	[add] _ee_uint_LOW_TEMP1_IN_DSG_ACT_RECORD_MINUTES_EEPROM
+	[add] _ee_uint_LOW_TEMP2_IN_DSG_ACT_RECORD_MINUTES_EEPROM
+	[add] _ee_uint_LOW_TEMP3_IN_DSG_ACT_RECORD_MINUTES_EEPROM
+	[add] RECORDING_ADC_LOW_TEMP_IN_DSG_ACT_TH1
+	[add] RECORDING_ADC_LOW_TEMP_IN_DSG_ACT_TH2
+	[add] RECORDING_ADC_LOW_TEMP_IN_DSG_ACT_TH3
+[ver18]
+	[date] 2013/08/29
+	[modify] _ee_uint_G_TH1_UTP_TIMES_RECORD_EEPROM to _ee_uint_G_TH1_CHG_UTP_TIMES_RECORD_EEPROM
+	[modify] _ee_uint_G_TH2_UTP_TIMES_RECORD_EEPROM to _ee_uint_G_TH2_CHG_UTP_TIMES_RECORD_EEPROM
+	[modify] Enter_Auto_Sleeping_ADC_Vol_Condition  27.3V to 27.65V ( for 26V)
+	[modify] Enter_Auto_Sleeping_ADC_Vol_Condition  39.0V to 39.5V ( for 36V)
+	[modify] Enter_Auto_Sleeping_ADC_Vol_Condition  50.7V to 51.35V ( for 48V)
+[ver19]
+	[date] 2013/09/06
+	[modify] _ee_uint_ADC_DSG_OT_HIGH_PROTECTION 80 degrees to 75 degrees
+	[add] _ee_int_RECORDING_System_Activated_Times_For_TotalHours
+	[add] _ee_uchar_RECORDING_Reserved_Data
+	[add] _ee_uchar_RECORDING_System_Activated_Times_Minutes_For_1_Hours
+[ver20]
+	[date] 2013/09/09
+	[modify] _ee_uchar_EEPROM_END_DATA_POSITION 85 to 165  (hex: 0x55 to 0xA5)
+	[add] _ee_uchar_EEPROM_PN_INFO_START_DATA_POSITION
+	[add] _ee_str_len_PN_DAK_NAME_MAX_LENGTH
+	[add] _ee_str_PN_DAK_NAME
+	[add] _ee_str_len_PN_85K_NAME_MAX_LENGTH
+	[add] _ee_str_PN_85K_NAME
+	[add] _ee_str_len_Cell_PN_NAME_MAX_LENGTH
+	[add] _ee_str_Cell_PN_NAME
+	[add] _ee_uchar_EEPROM_PN_INFO_END_DATA_POSITION
+[ver21]
+	[date] 2013/09/29
+	[modify] _ee_ulong_RESERVED_CAL_FOR_OFFSET1 to _ee_uint_R_Sense_10u_ohm, _ee_uchar_MCU_Major_Type_Code, _ee_uchar_MCU_Minor_Type_Code
+[ver22]
+	[date] 2013/10/1
+	[modify] MANUFACTURE_DATE values, and reducing no used lines.
+[ver23]
+	[date] 2013/11/8
+	[modify] MANUFACTURE_DATE default to 2013/11/8
+	[modify] AUTO_ENTRY_SLEEPING_DELAY_MINUTES from 12Hr to 24Hr
+[ver24]
+	[date] 2013/12/6
+	[modify] Enter_Auto_Sleeping_ADC_Vol_Condition, 27.65V to 28V, 39.5V to 40V, 51.35V to 52V	

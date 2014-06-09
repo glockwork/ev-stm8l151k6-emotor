@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Project>
+  <Desktop>
+    <Static>
+      <Debug-Log>
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1307</ColumnWidth1></Debug-Log>
+      <Build>
+        
+        
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>980</ColumnWidth1><ColumnWidth2>261</ColumnWidth2><ColumnWidth3>65</ColumnWidth3></Build>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>107</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      </Workspace>
+      <Disassembly>
+        
+        
+        
+      <MixedMode>1</MixedMode><CodeCovShow>1</CodeCovShow><InstrProfShow>1</InstrProfShow></Disassembly>
+    <Watch><Format><struct_types/><watch_formats><Fmt><Key>{W}Watch-0:data</Key><Value>4</Value></Fmt></watch_formats></Format><Column0>120</Column0><Column1>100</Column1><Column2>100</Column2><Column3>100</Column3></Watch><CallStack><ViewArgs>1</ViewArgs></CallStack><Find-in-Files><ColumnWidth0>340</ColumnWidth0><ColumnWidth1>48</ColumnWidth1><ColumnWidth2>583</ColumnWidth2></Find-in-Files><Memory><FindDirection>1</FindDirection><FindAsHex>0</FindAsHex></Memory><Auto><Column0>130</Column0><Column1>100</Column1><Column2>100</Column2><Column3>100</Column3></Auto></Static>
+    <Windows>
+      
+      
+      
+    <Wnd0>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-10624-4263</Identity>
+            <TabName>Debug Log</TabName>
+            <Factory>Debug-Log</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-10101-4273</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+        <Tab><Identity>TabID-26391-17911</Identity><TabName>Breakpoints</TabName><Factory>Breakpoints</Factory></Tab><Tab><Identity>TabID-22805-18206</Identity><TabName>Find in Files</TabName><Factory>Find-in-Files</Factory><Session/></Tab><Tab>
+            <Identity>TabID-21373-4267</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>lev_gen2_stm8l151k6</ExpandedNode><ExpandedNode>lev_gen2_stm8l151k6/Drivers</ExpandedNode><ExpandedNode>lev_gen2_stm8l151k6/SOC</ExpandedNode><ExpandedNode>lev_gen2_stm8l151k6/Source</ExpandedNode></NodeDict></Session>
+          </Tab></Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd1>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-32121-4270</Identity>
+            <TabName>Disassembly</TabName>
+            <Factory>Disassembly</Factory>
+            <Session/>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd1><Wnd2><Tabs><Tab><Identity>TabID-27129-13123</Identity><TabName>Watch</TabName><Factory>Watch</Factory><Session><Expressions><Expression><Expression>ADC_Buffer</Expression></Expression><Expression><Expression>G_Var_Array</Expression></Expression><Expression><Expression>ADC_Read_Buffers</Expression></Expression><Expression><Expression>Buffer</Expression></Expression><Expression><Expression>temp</Expression></Expression><Expression><Expression>floatV1</Expression></Expression><Expression><Expression>G_Receiving_Buffer</Expression></Expression><Expression><Expression>G_Communication_Array</Expression></Expression><Expression><Expression>Receiving_Data_Array</Expression></Expression><Expression><Expression>Interrupt_Calling_TimingDelay_counter_Timer4</Expression></Expression><Expression><Expression>g_Current_Status</Expression></Expression><Expression><Expression>Communication_Receive_Calling_Index</Expression></Expression><Expression><Expression>G_BAR_CODE_ID_Array</Expression></Expression><Expression><Expression>System_1_Min_Flag_Counter</Expression></Expression><Expression><Expression>G_Device_Interface_Status</Expression></Expression><Expression><Expression>G_Module_Function_Status</Expression></Expression><Expression><Expression>Sys_Flash_Control_Bit</Expression></Expression><Expression><Expression>address_val</Expression></Expression><Expression><Expression>val</Expression></Expression></Expressions><TabId>0</TabId><Column0>120</Column0><Column1>100</Column1><Column2>100</Column2><Column3>100</Column3></Session></Tab><Tab><Identity>TabID-19187-28819</Identity><TabName>Auto</TabName><Factory>Auto</Factory><Session><Column0>130</Column0><Column1>100</Column1><Column2>100</Column2><Column3>100</Column3></Session></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd2><Wnd3><Tabs><Tab><Identity>TabID-31623-16223</Identity><TabName>Call Stack</TabName><Factory>CallStack</Factory><Session/></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd3><Wnd4><Tabs><Tab><Identity>TabID-13346-6949</Identity><TabName>Memory</TabName><Factory>Memory</Factory><Session><ZoneNumber>2</ZoneNumber><SelectionAnchor>4363</SelectionAnchor><SelectionEnd>4364</SelectionEnd><UnitsPerGroup>1</UnitsPerGroup><EndianMode>0</EndianMode><DataCovEnabled>0</DataCovEnabled><DataCovShown>0</DataCovShown><AutoRefresh>0</AutoRefresh><HScroll>0</HScroll><VScroll>512</VScroll></Session></Tab><Tab><Identity>TabID-32505-18562</Identity><TabName>Memory</TabName><Factory>Memory</Factory><Session><ZoneNumber>7</ZoneNumber><SelectionAnchor>37350</SelectionAnchor><SelectionEnd>37350</SelectionEnd><UnitsPerGroup>1</UnitsPerGroup><EndianMode>0</EndianMode><DataCovEnabled>0</DataCovEnabled><DataCovShown>0</DataCovShown><AutoRefresh>0</AutoRefresh><HScroll>0</HScroll><VScroll>2330</VScroll></Session></Tab></Tabs><SelectedTab>1</SelectedTab></Wnd4></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Bin_Tools\PreBuild.bat</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>318</SelStart><SelEnd>318</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_Codes\Protection_Polling_Func.h</Filename><XPos>0</XPos><YPos>171</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_Codes\Protection_Polling_Func.c</Filename><XPos>0</XPos><YPos>366</YPos><SelStart>15696</SelStart><SelEnd>15696</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_Codes\Main_Sub_Functions.c</Filename><XPos>0</XPos><YPos>310</YPos><SelStart>13438</SelStart><SelEnd>13474</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_Codes\Driver_User_Interface_For_Uart.c</Filename><XPos>0</XPos><YPos>396</YPos><SelStart>18632</SelStart><SelEnd>18632</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_Codes\Config_Info\System_Config_Info.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>363</SelStart><SelEnd>363</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_Codes\main.c</Filename><XPos>0</XPos><YPos>58</YPos><SelStart>2931</SelStart><SelEnd>2931</SelEnd></Tab><ActiveTab>6</ActiveTab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-02aa1848><key>iaridepm.enu1</key></Toolbar-02aa1848></Sizes></Row0><Row1><Sizes><Toolbar-0e92faf8><key>debuggergui.enu1</key></Toolbar-0e92faf8></Sizes></Row1></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>419</Bottom><Right>198</Right><x>-2</x><y>-2</y><xscreen>999</xscreen><yscreen>200</yscreen><sizeHorzCX>731332</sizeHorzCX><sizeHorzCY>291545</sizeHorzCY><sizeVertCX>146413</sizeVertCX><sizeVertCY>613703</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>419</Bottom><Right>196</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>146413</sizeHorzCX><sizeHorzCY>291545</sizeHorzCY><sizeVertCX>144949</sizeVertCX><sizeVertCY>613703</sizeVertCY></Rect></Wnd1></Sizes></Row0><Row1><Sizes><Wnd2><Rect><Top>-2</Top><Left>194</Left><Bottom>419</Bottom><Right>481</Right><x>194</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>146413</sizeHorzCX><sizeHorzCY>291545</sizeHorzCY><sizeVertCX>210102</sizeVertCX><sizeVertCY>613703</sizeVertCY></Rect></Wnd2></Sizes></Row1></Right><Bottom><Row0><Sizes><Wnd4><Rect><Top>-2</Top><Left>-2</Left><Bottom>198</Bottom><Right>487</Right><x>-2</x><y>-2</y><xscreen>489</xscreen><yscreen>200</yscreen><sizeHorzCX>357980</sizeHorzCX><sizeHorzCY>291545</sizeHorzCY><sizeVertCX>146413</sizeVertCX><sizeVertCY>291545</sizeVertCY></Rect></Wnd4><Wnd3><Rect><Top>0</Top><Left>0</Left><Bottom>166039344</Bottom><Right>7898</Right><x>485</x><y>-2</y><xscreen>883</xscreen><yscreen>200</yscreen><sizeHorzCX>646413</sizeHorzCX><sizeHorzCY>291545</sizeHorzCY><sizeVertCX>146413</sizeVertCX><sizeVertCY>613703</sizeVertCY></Rect></Wnd3></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Project>
+
+
