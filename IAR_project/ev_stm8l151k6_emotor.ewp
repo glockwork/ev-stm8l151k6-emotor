@@ -248,7 +248,6 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state>$PROJ_DIR$\..</state>
           <state>$PROJ_DIR$\..\STM8L15x_StdPeriph_Lib_V1.5.1\Libraries\STM8L15x_StdPeriph_Driver\inc</state>
           <state>$PROJ_DIR$\..\STM8L15x_StdPeriph_Lib_V1.5.1\Libraries\STM8L15x_StdPeriph_Driver\src</state>
           <state>$PROJ_DIR$\..\Emotor_Sources</state>

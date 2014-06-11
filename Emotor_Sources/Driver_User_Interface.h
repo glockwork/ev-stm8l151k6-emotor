@@ -89,8 +89,8 @@ extern unsigned char G_Communication_Array[];
 /* Driver G_Device_Interface_Status Control Bits */
 /* For G_Device_Interface_Status ; unsigned int */
 //Low byte
-#define CHG_MOSFET_STATUS               (0x0001)    //CHG MOSFET Status, set = turn on
-#define DSG_MOSFET_STATUS               (0x0002)    //DSG MOSFET Status, set = turn on
+#define CHG_MOSFET_TurnON               (0x0001)    //CHG MOSFET Status, set = turn on
+#define DSG_MOSFET_TurnON               (0x0002)    //DSG MOSFET Status, set = turn on
 #define ADC_CONVERSION                  (0x0004)    //
 #define ADP_SOC_STATUS                  (0x0008)    //Adapter Soc Pin status
 #define ONE_WIRE_ENABLE_STATUS          (0x0010)    //One Wire control pin enable for one-wire communication

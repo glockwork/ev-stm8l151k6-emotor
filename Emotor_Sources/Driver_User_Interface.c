@@ -278,8 +278,8 @@ void _DUI_LED_TurnOff_serially(){
 ////////////////////////////////////////////////////////////////////////
 // MosFet control  : (section start)
 void _DUI_InitMosControl(){
-    G_Device_Interface_Status &= ~CHG_MOSFET_STATUS;
-    G_Device_Interface_Status &= ~DSG_MOSFET_STATUS;
+    G_Device_Interface_Status &= ~CHG_MOSFET_TurnON;
+    G_Device_Interface_Status &= ~DSG_MOSFET_TurnON;
     _Device_Mos_Control_Init();
 #if (_DSG_Mos_Control_Reversed_Lo_Turn_ON_ == 1)
     _DUI_Set_DSG_MosFET(DeviceOff);
@@ -292,20 +292,20 @@ void _DUI_InitMosControl(){
 void _DUI_Set_DSG_MosFET(unsigned char enable){
     if(enable == DeviceOn){
         _Device_DSG_MosFET_Pin_Low();
-        G_Device_Interface_Status |= (DSG_MOSFET_STATUS);
+        G_Device_Interface_Status |= (DSG_MOSFET_TurnON);
     }else{
         _Device_DSG_MosFET_Pin_High();
-        G_Device_Interface_Status &= ~(DSG_MOSFET_STATUS);
+        G_Device_Interface_Status &= ~(DSG_MOSFET_TurnON);
     }
 }
 #else
 void _DUI_Set_DSG_MosFET(unsigned char enable){
     if(enable == DeviceOn){
         _Device_DSG_MosFET_Pin_High();
-        G_Device_Interface_Status |= (DSG_MOSFET_STATUS);
+        G_Device_Interface_Status |= (DSG_MOSFET_TurnON);
     }else{
         _Device_DSG_MosFET_Pin_Low();
-        G_Device_Interface_Status &= ~(DSG_MOSFET_STATUS);
+        G_Device_Interface_Status &= ~(DSG_MOSFET_TurnON);
     }
 }
 #endif
@@ -313,20 +313,20 @@ void _DUI_Set_DSG_MosFET(unsigned char enable){
 void _DUI_Set_CHG_MosFET(unsigned char enable){
     if(enable == DeviceOn){
         _Device_CHG_MosFET_Pin_Low();
-        G_Device_Interface_Status |= (CHG_MOSFET_STATUS);
+        G_Device_Interface_Status |= (CHG_MOSFET_TurnON);
     }else{
         _Device_CHG_MosFET_Pin_High();
-        G_Device_Interface_Status &= ~(CHG_MOSFET_STATUS);
+        G_Device_Interface_Status &= ~(CHG_MOSFET_TurnON);
     }
 }
 #else
 void _DUI_Set_CHG_MosFET(unsigned char enable){
     if(enable == DeviceOn){
         _Device_CHG_MosFET_Pin_High();
-        G_Device_Interface_Status |= (CHG_MOSFET_STATUS);
+        G_Device_Interface_Status |= (CHG_MOSFET_TurnON);
     }else{
         _Device_CHG_MosFET_Pin_Low();
-        G_Device_Interface_Status &= ~(CHG_MOSFET_STATUS);
+        G_Device_Interface_Status &= ~(CHG_MOSFET_TurnON);
     }
 }
 #endif

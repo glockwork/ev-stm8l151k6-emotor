@@ -242,7 +242,7 @@
     #define _DSG_Mos_Control_Reversed_Lo_Turn_ON_           ( 0 )   //Default : 0:(normal: Hi=>Turn on), 1:(reversed: Lo=>Turn on)
     #define _CHG_Mos_Control_Reversed_Lo_Turn_ON_           ( 0 )   //Default : 0:(normal: Hi=>Turn on), 1:(reversed: Lo=>Turn on)
     #define _Set_UART_AS_Half_Duplex_Transmission_          ( 0 )   //0:(Default)(simple Transmission with two wires conection, 1:(Half_Duplex_Transmission with one-wire connecton)
-    #define _ENABLE_FOR_Monitoring_HW_PIC_STATUS_           ( 0 )   //0:(Default)(disable monitoring PIC HW signal), 1:(enable monitoring PIC HW signal)
+    #define _ENABLE_FOR_Monitoring_HW_PIC_STATUS_           ( 1 )   //0:(Default)(disable monitoring PIC HW signal), 1:(enable monitoring PIC HW signal)
     #define _Simulate_Cell_Voltages_                        ( 0 )   //0:(Default)(disable Simulate Cell Voltages), 1:(enable Simulate Cell Voltages)
 
 #elif defined(_Ares_TB290_24100_D_7S4P4LEDLowDrv_SDI26FM_SW1_Aslp_Wup_CC_DUVP_R136C220D82_)

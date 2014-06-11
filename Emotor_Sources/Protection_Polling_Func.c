@@ -603,7 +603,7 @@ void Protection_Polling_Function(void){
 //      /////////////////////////////////////////////////////////////////////////////////////////////
 //      // Check whether DSG MOSFET Failure, when DSG mosfet turn off
 //      if((G_SystemFailureStatus == 0) && (G_Device_Action_Controls & DSG_MOS_TURNOFF_STABLE)){
-//        if(((G_Device_Action_Controls & DSG_MOSFET_STATUS)==0) && (G_Module_Active_Status & Current_Dir_DSG) && (G_DSG_Current_ADC > 100)){
+//        if(((G_Device_Action_Controls & DSG_MOSFET_TurnON)==0) && (G_Module_Active_Status & Current_Dir_DSG) && (G_DSG_Current_ADC > 100)){
 //          if(DSGMosFet_Fail_Counter >= MosFET_Protection_Delay_Cycle){
 //            G_Indication_FailureMode_Status |= DSGMOSFETFail;
 //          }else{
@@ -618,7 +618,7 @@ void Protection_Polling_Function(void){
 //      /////////////////////////////////////////////////////////////////////////////////////////////
 //      // Check whether CHG MOSFET Failure, when CHG mosfet turn off
 //      if((G_SystemFailureStatus == 0) && (G_Device_Action_Controls & CHG_MOS_TURNOFF_STABLE)){
-//        if(((G_Device_Action_Controls & CHG_MOSFET_STATUS)==0) && (G_Module_Active_Status & Current_Dir_CHG) && (G_CHG_Current_ADC > 100)){
+//        if(((G_Device_Action_Controls & CHG_MOSFET_TurnON)==0) && (G_Module_Active_Status & Current_Dir_CHG) && (G_CHG_Current_ADC > 100)){
 //          if(CHGMosFet_Fail_Counter >= MosFET_Protection_Delay_Cycle){
 //            G_Indication_FailureMode_Status |= CHGMOSFETFail;
 //          }else{
@@ -1064,7 +1064,7 @@ void Protection_Polling_Function(void){
     //////////////////////////////////////////////////////////////////////////////
     // detection mos fail and counter
     //////////////////////////////////////////////////////////////////////////////
-    if(((G_Module_Status & CHG_MOS_FAIL) == 0) && ((G_Device_Interface_Status & CHG_MOSFET_STATUS)==0)){
+    if(((G_Module_Status & CHG_MOS_FAIL) == 0) && ((G_Device_Interface_Status & CHG_MOSFET_TurnON)==0)){
         if(CHG_MOS_FAIL_Counter > MOS_Fail_CycleTimes){
             if(G_Module_Status & Current_Dir_CHG){
                 G_Module_Status |= CHG_MOS_FAIL;
@@ -1075,7 +1075,7 @@ void Protection_Polling_Function(void){
     }else{
         CHG_MOS_FAIL_Counter = 0;
     }
-    if(((G_Module_Status & DSG_MOS_FAIL) == 0) && ((G_Device_Interface_Status & DSG_MOSFET_STATUS)==0)){
+    if(((G_Module_Status & DSG_MOS_FAIL) == 0) && ((G_Device_Interface_Status & DSG_MOSFET_TurnON)==0)){
         if(DSG_MOS_FAIL_Counter > MOS_Fail_CycleTimes){
             if(G_Module_Status & Current_Dir_DSG){
                 G_Module_Status |= DSG_MOS_FAIL;
@@ -1171,7 +1171,7 @@ void Protection_Polling_Function(void){
             USB_OCP_Signal_Release_Cycle_Counter = 0;
         }
     }
-    if((G_Device_Interface_Status &(DSG_MOSFET_STATUS)) == 0){
+    if((G_Device_Interface_Status &(DSG_MOSFET_TurnON)) == 0){
         _DUI_Set_USB_Power_Output(DeviceOff);
     }else if( G_Add_Module_Function_Status & OCP_FOR_USB_POWER_OUTPUT){
         _DUI_Set_USB_Power_Output(DeviceOff);
@@ -1185,7 +1185,7 @@ void Protection_Polling_Function(void){
 #if (_LED_BackLight_Control_ == 1)
 //    //////////////////////////////////////////////////////////////////////////
 //    //Back Light Start Counter : (section start)
-//    if((G_Device_Interface_Status &(DSG_MOSFET_STATUS)) == 0){
+//    if((G_Device_Interface_Status &(DSG_MOSFET_TurnON)) == 0){
 //        _DUI_Set_BackLight_Output(DeviceOff);
 //        BackLight_Blinking_Counter = 0;
 //    }else{
