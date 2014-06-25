@@ -11,9 +11,6 @@
 
 #if (_Enable_Coulomb_Counter_FCC_RM_ == 1)
 
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //  SDI 22FM
@@ -70,7 +67,7 @@
     #error "Please select Cell Type and SERIES/PARALLEL Number. (in Coulomb Counter)"
 #endif
 
-#if (!defined(_1_DIMENSION_CC_OCV_ARRAY_))
+#if defined(_1_DIMENSION_CC_OCV_ARRAY_)
 ///////////////////////////////////////////////////////////////////////////////
 #include "Vars_Bits_Define.h"
 //#include "Global_Variable_Define.h"
@@ -136,7 +133,7 @@ unsigned int percentage_static;
 bool lut_enable;
 bool current_stop;
 bool Chg_Fcc_update_flag;
-unsigned int real_vbat;
+unsigned long real_vbat;
 
 /////////////////////////////
 //hsinmo function
@@ -302,7 +299,29 @@ void FCC_calculator_CHG()
      (*coulombCounterFccUpdatedCalling_ptr_fuc)(get_FCC(), true);
   }
 }
+////////////////////////////////////////////////////
+// add by hsinmo-20140613
+unsigned int getCapacityByRealmVoltage(unsigned long real_mVoltage){
+  unsigned int capacity;
 
+  unsigned char i;
+
+  capacity = 0;
+  if(real_mVoltage >= CC_OCV_Table[_CC_OCV_TABLE_POINTS_ - 1]){
+      capacity = 100;    //100%
+  }else if(real_mVoltage <= CC_OCV_Table[0]){
+      capacity = 0;
+  }else{
+      for(i = 1; i < _CC_OCV_TABLE_POINTS_; i++){
+          if(real_mVoltage <= CC_OCV_Table[i]){
+              //capacity = i;//取較大值 capacity
+              capacity = i - 1;//取較小值 capacity
+              break;
+          }
+      }//for
+  }
+  return capacity;
+}
 void current_coulomb_counter(unsigned current_status)
 {
     unsigned int i;
@@ -369,57 +388,67 @@ void current_coulomb_counter(unsigned current_status)
         if(static_day >= day_counter || lut_enable == false)
         {
           lut_enable = false;
-          real_vbat = (unsigned int)(g_ADC_Values[Param_VBAT_Index]/g_Factor_Values[Param_VBAT_Index]);
-          for(i=0;i<101;i++)
-          {
-            if((ocv_table[i][1]>real_vbat) && (i != 0))
-            {
-              percentage_calculation = ocv_table[i-1][0];
-              break;
-            }
-            else if(real_vbat>ocv_table[100][1])
-            {
-              percentage_calculation = ocv_table[100][0];
-              break;
-            }
-            else
-            {
-              if(ocv_table[0][1]>real_vbat)
-              {
-                percentage_calculation = 0;
-                break;
-              }
-            }
-          }
+          real_vbat = (unsigned long)(g_ADC_Values[Param_VBAT_Index]/g_Factor_Values[Param_VBAT_Index]);
+
+          //modify by hsinmo-20140613
+          percentage_calculation = getCapacityByRealmVoltage(real_vbat);
+//          for(i=0;i<101;i++)
+//          {
+//            if((ocv_table[i]>real_vbat) && (i != 0))
+//            {
+//              //percentage_calculation = ocv_table[i-1][0];
+//              percentage_calculation = i;
+//              break;
+//            }
+//            else if(real_vbat>ocv_table[100])
+//            {
+//              //percentage_calculation = ocv_table[100][0];
+//              percentage_calculation = 100;
+//              break;
+//            }
+//            else
+//            {
+//              if(ocv_table[0]>real_vbat)
+//              {
+//                percentage_calculation = 0;
+//                break;
+//              }
+//            }
+//          }
           Discharge_capacity(percentage_calculation);
           static_day=0;
         }
         if(static_hour > hour_counter)
         {
-          real_vbat = (unsigned int)(g_ADC_Values[Param_VBAT_Index]/g_Factor_Values[Param_VBAT_Index]);
-          for(i=0;i<101;i++)
-          {
-            if((ocv_table[i][1]>real_vbat) && (i != 0))
-            {
-              percentage_static = ocv_table[i-1][0];
-              break;
-            }
-            else if(real_vbat>ocv_table[100][1])
-            {
-              percentage_static = ocv_table[100][0];
-              break;
-            }
-            else
-            {
-              if(ocv_table[0][1]>real_vbat)
-              {
-                percentage_static = 0;
-                break;
-              }
-            }
-            //jasper, 查表得到RM和DC值
-            //Discharge_capacity(percentage_static);
-          }
+          real_vbat = (unsigned long)(g_ADC_Values[Param_VBAT_Index]/g_Factor_Values[Param_VBAT_Index]);
+
+          //modify by hsinmo-20140613
+          percentage_static = getCapacityByRealmVoltage(real_vbat);
+//          for(i=0;i<101;i++)
+//          {
+//            if((ocv_table[i]>real_vbat) && (i != 0))
+//            {
+//              //percentage_static = ocv_table[i-1][0];
+//              percentage_static = i-1;
+//              break;
+//            }
+//            else if(real_vbat>ocv_table[100])
+//            {
+//              //percentage_static = ocv_table[100][0];
+//              percentage_static = 100;
+//              break;
+//            }
+//            else
+//            {
+//              if(ocv_table[0]>real_vbat)
+//              {
+//                percentage_static = 0;
+//                break;
+//              }
+//            }
+//            //jasper, 查表得到RM和DC值
+//            //Discharge_capacity(percentage_static);
+//          }
           if(percentage_static < 30)
           {
             //updated FCC IN STATIC
@@ -451,7 +480,6 @@ void current_coulomb_counter(unsigned current_status)
       static_min++;
     }
 }
-#endif  //#if (!defined(_1_DIMENSION_CC_OCV_ARRAY_))
+#endif  //#if defined(_1_DIMENSION_CC_OCV_ARRAY_)
 
 #endif  //#if (_Enable_Coulomb_Counter_FCC_RM_ == 1)
-

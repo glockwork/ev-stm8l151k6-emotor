@@ -30,11 +30,11 @@
 //==============================================================================
 // Private define
 //==============================================================================
-#define HW_CHG_PORT         GPIOC
-#define HW_CHG_PIN          GPIO_Pin_1
+#define HW_CHG_PORT         GPIOA
+#define HW_CHG_PIN          GPIO_Pin_3
 
-#define HW_DSG_PORT	        GPIOC
-#define HW_DSG_PIN	        GPIO_Pin_0
+#define HW_DSG_PORT	        GPIOA
+#define HW_DSG_PIN	        GPIO_Pin_2
 
 //==============================================================================
 // Private macro

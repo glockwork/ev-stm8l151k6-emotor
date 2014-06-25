@@ -495,7 +495,7 @@
       <name>BUILDACTION</name>
       <archiveVersion>1</archiveVersion>
       <data>
-        <prebuild></prebuild>
+        <prebuild>$PROJ_DIR$\..\Bin_Tools\PreBuild.bat $PROJ_DIR$</prebuild>
         <postbuild></postbuild>
       </data>
     </settings>
@@ -1534,6 +1534,9 @@
       <name>$PROJ_DIR$\..\Emotor_Sources\Config_Info\FW_Version_Define.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\Bin_Tools\PreBuild.bat</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\Emotor_Sources\Config_Info\System_Config_Info.h</name>
     </file>
   </group>
@@ -1541,9 +1544,21 @@
     <name>Coulomb_Counter</name>
     <file>
       <name>$PROJ_DIR$\..\Emotor_Sources\Coulomb_Counter\coulomb_counter.c</name>
+      <excluded>
+        <configuration>Debug</configuration>
+      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\Emotor_Sources\Coulomb_Counter\coulomb_counter.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Emotor_Sources\Coulomb_Counter\coulomb_counter_1D.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Emotor_Sources\Coulomb_Counter\coulomb_counter_1D_Modify.c</name>
+      <excluded>
+        <configuration>Debug</configuration>
+      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\Emotor_Sources\Coulomb_Counter\OCV_Table_LGC_26B4_10S.h</name>
@@ -1574,6 +1589,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\Emotor_Sources\Coulomb_Counter\OCV_Table_SDI_26F_13S.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Emotor_Sources\Coulomb_Counter\OCV_Table_SDI_26F_16S.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\Emotor_Sources\Coulomb_Counter\OCV_Table_SDI_26F_5S.h</name>

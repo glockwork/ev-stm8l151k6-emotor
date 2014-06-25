@@ -3,7 +3,7 @@
 #define BAR_CODE_ID_Array_Whole_Size	            (BAR_CODE_ID_Array_Size + 2 + 1)
 extern unsigned char G_BAR_CODE_ID_Array[];
 
-#define VarArray_Int_Size	                        (97)
+#define VarArray_Int_Size	                        (109)
 
 
 extern unsigned int G_Var_Array[];
@@ -125,7 +125,7 @@ extern unsigned int G_Var_Array[];
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 3rd status   (previous Total Items: 50 + 26 = 76)
 #define _3rd_STATUS_DATA_Start_Array_Index          (_2nd_RECORDING_DATA_Start_Array_Index + _2nd_RECORDING_DATA_NUMBER)
-#define _3rd_STATUS_DATA_NUMBER                     (20)
+#define _3rd_STATUS_DATA_NUMBER                     (32)
 
 #define G_Count_TimesOfAutoWakeUp_InSleeping_Hi     (G_Var_Array[ _3rd_STATUS_DATA_Start_Array_Index + 0])
 #define G_Count_TimesOfAutoWakeUp_InSleeping_Lo     (G_Var_Array[ _3rd_STATUS_DATA_Start_Array_Index + 1])
@@ -160,6 +160,27 @@ extern unsigned int G_Var_Array[];
 #define G_ul_NowTotalTimes_Without_DisCharging_Minutes      (*((unsigned long *)(&G_NowTotalTimes_Without_DisCharging_Minutes_Hi)))
 #define G_ul_LastTotalTimes_Without_DisCharging_Minutes     (*((unsigned long *)(&G_LastTotalTimes_Without_DisCharging_Minutes_Hi)))
 #define G_ul_MaxTotalTimes_Without_DisCharging_Minutes      (*((unsigned long *)(&G_MaxTotalTimes_Without_DisCharging_Minutes_Hi)))
+//=========================================================================================================
+// the address starting is fit for Data type of Long, Double, float (which is four bytes) can use Point (long *) to access it
+#define G_RECORDING_ADC_DSG_OVER_CURRENT_1_6sec_Hi               (G_Var_Array[ _3rd_STATUS_DATA_Start_Array_Index + 20])
+#define G_RECORDING_ADC_DSG_OVER_CURRENT_1_6sec_Lo               (G_Var_Array[ _3rd_STATUS_DATA_Start_Array_Index + 21])
+#define G_RECORDING_ADC_DSG_OVER_CURRENT_2_6sec_Hi               (G_Var_Array[ _3rd_STATUS_DATA_Start_Array_Index + 22])
+#define G_RECORDING_ADC_DSG_OVER_CURRENT_2_6sec_Lo               (G_Var_Array[ _3rd_STATUS_DATA_Start_Array_Index + 23])
+#define G_RECORDING_ADC_DSG_OVER_CURRENT_3_6sec_Hi               (G_Var_Array[ _3rd_STATUS_DATA_Start_Array_Index + 24])
+#define G_RECORDING_ADC_DSG_OVER_CURRENT_3_6sec_Lo               (G_Var_Array[ _3rd_STATUS_DATA_Start_Array_Index + 25])
+#define G_RECORDING_ADC_DSG_OVER_CURRENT_4_6sec_Hi               (G_Var_Array[ _3rd_STATUS_DATA_Start_Array_Index + 26])
+#define G_RECORDING_ADC_DSG_OVER_CURRENT_4_6sec_Lo               (G_Var_Array[ _3rd_STATUS_DATA_Start_Array_Index + 27])
+#define G_RECORDING_ADC_DSG_OVER_CURRENT_5_6sec_Hi               (G_Var_Array[ _3rd_STATUS_DATA_Start_Array_Index + 28])
+#define G_RECORDING_ADC_DSG_OVER_CURRENT_5_6sec_Lo               (G_Var_Array[ _3rd_STATUS_DATA_Start_Array_Index + 29])
+#define G_RECORDING_ADC_DSG_OVER_CURRENT_6_6sec_Hi               (G_Var_Array[ _3rd_STATUS_DATA_Start_Array_Index + 30])
+#define G_RECORDING_ADC_DSG_OVER_CURRENT_6_6sec_Lo               (G_Var_Array[ _3rd_STATUS_DATA_Start_Array_Index + 31])
+// use Point (long *) to access it
+#define G_ul_RECORDING_ADC_DSG_OVER_CURRENT_1_6sec         (*((unsigned long *)(&G_RECORDING_ADC_DSG_OVER_CURRENT_1_6sec_Hi)))
+#define G_ul_RECORDING_ADC_DSG_OVER_CURRENT_2_6sec         (*((unsigned long *)(&G_RECORDING_ADC_DSG_OVER_CURRENT_2_6sec_Hi)))
+#define G_ul_RECORDING_ADC_DSG_OVER_CURRENT_3_6sec         (*((unsigned long *)(&G_RECORDING_ADC_DSG_OVER_CURRENT_3_6sec_Hi)))
+#define G_ul_RECORDING_ADC_DSG_OVER_CURRENT_4_6sec         (*((unsigned long *)(&G_RECORDING_ADC_DSG_OVER_CURRENT_4_6sec_Hi)))
+#define G_ul_RECORDING_ADC_DSG_OVER_CURRENT_5_6sec         (*((unsigned long *)(&G_RECORDING_ADC_DSG_OVER_CURRENT_5_6sec_Hi)))
+#define G_ul_RECORDING_ADC_DSG_OVER_CURRENT_6_6sec         (*((unsigned long *)(&G_RECORDING_ADC_DSG_OVER_CURRENT_6_6sec_Hi)))
 
 
 

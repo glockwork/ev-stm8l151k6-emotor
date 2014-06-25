@@ -120,12 +120,12 @@ extern unsigned char G_Communication_Array[];
 #define UART_RX_FRAME_ADDRESS_FAIL      (0x0040)    //
 #define UART_RX_FRAME_PACKET_FAIL       (0x0080)    //
 ////Hight byte
-#define Force_DSG_MOS_OFF               (0x0100)    //
-#define Force_CHG_MOS_OFF               (0x0200)    //
-//#define                   (0x0400)    //
-//#define               (0x0800)    //
-//#define         (0x1000)    ///
-//#define         (0x2000)    //
+#define Force_DSG_MOS_OFF               (0x0100)    // by cmd
+#define Force_CHG_MOS_OFF               (0x0200)    // by cmd
+#define HasSleptOnce                    (0x0400)    // 
+#define SET_CHG_MOS_OFF                 (0x0800)    // set physical chg mos turn off
+#define SET_DSG_MOS_OFF                 (0x1000)    // set physical dsg mos turn off
+//#define          (0x2000)    //
 //#define            (0x4000)    //
 //#define            (0x8000)    //
 /////////////////////////////////////////////////////////////////////////////////

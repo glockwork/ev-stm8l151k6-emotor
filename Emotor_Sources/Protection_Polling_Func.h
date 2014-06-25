@@ -56,8 +56,9 @@ void test_toggle();
 /////////////////////////////////////////////////
 // Current Sub Functions Vairable Define
 //1 time = 50ms, based on timer interval time
-#define DSG_OC_Protection_Delay_Cycle       10   //times,1000 ms = 1sec = DSG_OC_Protection_Delay_Cycle * TimerIntervalTimeBase_MS
-#define CHG_OC_Protection_Delay_Cycle       10   //times,1000 ms = 1sec = CHG_OC_Protection_Delay_Cycle * TimerIntervalTimeBase_MS
+#define DSG_OC_Protection_Delay_Cycle       100   //times,100*100 ms = 10sec = DSG_OC_Protection_Delay_Cycle * TimerIntervalTimeBase_MS
+//#define DSG_OC_Protection_Delay_Cycle       10   //times,10*100 ms = 1sec = DSG_OC_Protection_Delay_Cycle * TimerIntervalTimeBase_MS
+#define CHG_OC_Protection_Delay_Cycle       10   //times,10*100 ms = 1sec = CHG_OC_Protection_Delay_Cycle * TimerIntervalTimeBase_MS
 
 /*
     COC_RELEASE_HOLDING_CycleTimes
@@ -71,8 +72,10 @@ void test_toggle();
 
 #define Battery_OV_Protection_Delay_Cycle   30   //times, 3000 ms = 3sec = Battery_OV_Protection_Delay_Cycle * TimerIntervalTimeBase_MS
 #define Battery_UV_Protection_Delay_Cycle   30   //times, 3000 ms = 3sec = Battery_UV_Protection_Delay_Cycle * TimerIntervalTimeBase_MS
-#define DSG_Low_OT_Protection_Delay_Cycle   10   //times, 1000 ms = 1sec = DSG_Low_OT_Protection_Delay_Cycle * TimerIntervalTimeBase_MS
-#define DSG_High_OT_Protection_Delay_Cycle  10   //times, 1000 ms = 1sec = DSG_High_OT_Protection_Delay_Cycle * TimerIntervalTimeBase_MS
+//#define DSG_Low_OT_Protection_Delay_Cycle   10   //times, 1000 ms = 1sec = DSG_Low_OT_Protection_Delay_Cycle * TimerIntervalTimeBase_MS
+//#define DSG_High_OT_Protection_Delay_Cycle  10   //times, 1000 ms = 1sec = DSG_High_OT_Protection_Delay_Cycle * TimerIntervalTimeBase_MS
+#define DSG_Low_OT_Protection_Delay_Cycle   1200   //times, 120000 ms = 2min = DSG_Low_OT_Protection_Delay_Cycle * TimerIntervalTimeBase_MS
+#define DSG_High_OT_Protection_Delay_Cycle  1200   //times, 120000 ms = 2min = DSG_High_OT_Protection_Delay_Cycle * TimerIntervalTimeBase_MS
 #define CHG_OT_Protection_Delay_Cycle       10   //times, 1000 ms = 1sec = CHG_OT_Protection_Delay_Cycle * TimerIntervalTimeBase_MS
 #define UT_Protection_Delay_Cycle           10   //times, 1000 ms = 1sec = UT_Protection_Delay_Cycle * TimerIntervalTimeBase_MS
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -95,6 +98,7 @@ void test_toggle();
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #define UINT_MAX_VALUES_TH           0xfff8
+#define ULONG_MAX_VALUES_TH           0xfffffff8
 //////////////////////////////////////////////////////////////////////////////////////////////
 // Polling function
 void InitProtectionPollingFuncVariables(void);
@@ -133,6 +137,7 @@ enum For_EEPROM_Store_Step  //unsigned char
     Storing_4rd_Low_Temp_in_Act,
     Storing_Count_DSG_CHG_Time_1,
     Storing_Count_DSG_CHG_Time_2,
+    storing_DSG_Current_Record,
     Storing_Last_Step
 };
 
@@ -141,6 +146,7 @@ enum For_EEPROM_Store_Step  //unsigned char
 
 #define _500mS_CycleTimes_For_CoulombCounter         5  //unit:cycles , 500 ms = _500mS_CycleTimes_For_CoulombCounter * TimerIntervalTimeBase_MS
 #define _1_Min_CycleTimes_For_RecordingData         600  //unit:cycles , 1 min = _1_Min_CycleTimes_For_RecordingData * TimerIntervalTimeBase_MS
+#define _6_sec_CycleTimes_For_RecordingData         60  //unit:cycles , 6 sec = _6_sec_CycleTimes_For_RecordingData * TimerIntervalTimeBase_MS
 #define WriteRecordingData_Minutes                   30  //unit: minutes
 #define RecordingPolling_Start_Delay_CycleTimes            10  //unit:cycles + 1 , 1 sec = RecordingPolling_Start_Delay_CycleTimes * TimerIntervalTimeBase_MS
 #define VBAT_Recording_Delay_CycleTimes_When_Soc_Set       5  //unit:cycles , 500 ms = VBAT_Recording_Delay_CycleTimes_When_Soc_Set * TimerIntervalTimeBase_MS
@@ -165,6 +171,7 @@ void Write_3rd_High_Temp_ToEEPROM();
 void Write_4rd_Low_Temp_in_Act_ToEEPROM();
 void Write_Count_DSG_CHG_TIME_1_ToEEPROM();
 void Write_Count_DSG_CHG_TIME_2_ToEEPROM();
+void Write_DSG_Current_Record_ToEEPROM();
 
 void Write_BAR_CODE_ID_To_EEPROM();
 //void WriteSystemRecordingInfoToEEPROM();

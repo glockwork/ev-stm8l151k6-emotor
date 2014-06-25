@@ -105,6 +105,7 @@ static unsigned int g_Cap_Defference_Delay_Update_Counter;
 #if (_Enable_Coulomb_Counter_FCC_RM_ == 1)
 //static unsigned int g_temp_FCC;
 #endif
+void InitCoulombCounterCap();
 
 enum For_LEDDisplayStatusCode  //unsigned char
 {
@@ -377,6 +378,13 @@ void InitCapacityDisplayFuncVariables(void){
     g_Cap_Defference_Delay_Update_Counter = 0;
     //g_Capacity_Light_LED_Numbers = 0;
 
+    InitCoulombCounterCap();
+
+
+}
+
+void InitCoulombCounterCap(){
+
 #if (_Enable_Coulomb_Counter_FCC_RM_ == 1)
     init_Coulomb_counter(coulombCounterFccUpdated, DESIGN_CAPACITY_mAH);
     //g_temp_FCC = 0;
@@ -385,9 +393,8 @@ void InitCapacityDisplayFuncVariables(void){
 
     gf_cap_remaning_capacity = 0.0f;
     g_Capacity_Remaining_Capacity = 0;
-
-
 }
+
 //void Set_Capacity_Polling_Interval_Time_mS(unsigned int Polling_Interval_Time_ms){
 //    if(Polling_Interval_Time_ms > 0){
 //        g_Capacity_Polling_Interval_Time_mS = Polling_Interval_Time_ms;

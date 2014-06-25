@@ -13,7 +13,9 @@
 //#define _Ares115_36100_D_10S4P4LEDLD26FMAslpWupCCDuvp200RV24_Test_
 ///////////////////////////////////////////////////////////////////////////////
 // V3.7.26
-#define _Ares_HM_36088_C_10S4P5LEDLowDrv_SDI22FM_SW1_Aslp_Wup_Blight_CC_DUVP_R136C220D82_    //
+//#define _Span2_60400_X_B_16S16P5LEDLowDrv_SDI26FM_SW1_NTC2_Aslp_Wup_CC_DUVP_R60C620D82_    //e-motor 2KW
+#define _Span1_60200_X_B_16S8P5LEDLowDrv_SDI26FM_SW1_NTC2_Aslp_Wup_CC_DUVP_R60C620D82_    //e-motor 1KW
+//#define _Ares_HM_36088_C_10S4P5LEDLowDrv_SDI22FM_SW1_Aslp_Wup_Blight_CC_DUVP_R136C220D82_    //
 //#define _Ares_TB290_24100_D_7S4P4LEDLowDrv_SDI26FM_SW1_Aslp_Wup_CC_DUVP_R136C220D82_    //
 //#define _Ares_SSHT3280_36100_N_10S4P4LEDLowDrv_SDI26FM_SW1_Aslp_Wup_CC_DUVP_R200C180D100_    //®ü³b¤T¸¹rework from AresTB300
 //#define _Ares_SX_YJ_36104_D_10S4P4LEDLowDrv_SDI26FM_SW1_Aslp_Wup_CC_DUVP_R136C220D82_    //¶¶½üÂù¶¯
@@ -211,7 +213,75 @@
 
 #define _ONE_WIRE_UART_ALWAYS_TRANSMIT_SET_ENABLE_      ( 0 )   //Default : 0 (disable, enable by cmd), Set enable transmit always
 ///////////////////////////////////////////////////////////////////////////////
-#if defined(_Ares_HM_36088_C_10S4P5LEDLowDrv_SDI22FM_SW1_Aslp_Wup_Blight_CC_DUVP_R136C220D82_)
+#if defined(_Span2_60400_X_B_16S16P5LEDLowDrv_SDI26FM_SW1_NTC2_Aslp_Wup_CC_DUVP_R60C620D82_)
+    #include "Prg_Parser_UserDefine_Span2_60400_X_B_16S16P5LEDLowDrv_SDI26FM_SW1_NTC2_Aslp_Wup_CC_DUVP_R60C620D82_V27.h"
+    //#include "Prg_Parser_UserDefine_Span1_60200_X_B_16S8P5LEDLowDrv_SDI26FM_SW1_NTC2_Aslp_Wup_CC_DUVP_R60C620D82_V27.h"
+    #define _NTC_MITSUBISHI_H_TYPE_3413_        // Can be selected: _NTC_MITSUBISHI_H_TYPE_3413_, _NTC_MITSUBISHI_J_TYPE_3450_(¤p¶Â¨§)
+    #define _CELL_SERIES_NUMBER_        ( 16 )  // Can be selected: 7, 10, 13
+    #define _CELL_PARALLEL_NUMBER_      ( 16 )   // Can be selected: 2, 3, 4, 5, 6, 7
+    #define _CELL_TYPE_SDI_26F_                 // Can be selected: _CELL_TYPE_SDI_29E_,_CELL_TYPE_LGC_26B4_, _CELL_TYPE_SDI_26H_, _CELL_TYPE_SDI_22H_, _CELL_TYPE_SDI_26F_, _CELL_TYPE_SDI_22FM_
+    #define _LED_DISPLAY_NUMBERS_       ( 5 )   // Can be Selected: 0, 3, 4, 5
+    #define _Use_Usart_Port_Mapping_    ( 0 )   // Can be Selected: 0(use default port), 1(mapping to other port)
+    #define _SW_Button_LEVEL_Reverse_   ( 1 )   // Can be Selected: 0(normal=> press=Hi, release=Lo), 1((reverse=> press=Lo, release=Hi))
+    #define _Enable_SW_Button_Only_For_Turn_ON_OFF_System_  ( 0 )   //when product is No LED for Capacity, use this can Turn on/off DSG Mos
+    #define _Enable_MagneticReedSW_AsButton_Only_For_RxTx_  ( 0 )   //when product is no SW Button and No LED for Capacity, use this for only communication
+    #define _ONE_WIRE_UART_BUTTON_TEMPORARY_SET_ENABLE_     ( 1 )   //Default : 0 (disable, enable by cmd), Set enable by button
+    #define _COMMUNICATION_USE_PHOTO_ISOALTOR_              ( 1 )   //Default : 0 (None or Normal Iso), 1 : use photo isolator
+    #define _USE_TOUCH_KEY_WITH_LED_                        ( 0 )   //Default : 0 (No Use), 1 : use Touch key with Breathing Led
+    #define _USE_USB_POWER_OUTPUT_MODULE_                   ( 0 )   //Default : 0 (No Use), 1 : use USB Power Output Module
+    #define _AUTO_ENTER_SLEEPING_MODE_PREASS_TO_WAKE_UP_    ( 1 )   //Default : 0 (No Use), 1 : use Auto-enter sleeping mode
+    #define _AUTO_RTC_PERIOD_WAKE_UP_FOR_AUTO_SLEEPING_     ( 1 )   //Default : 0 (No Use), 1 : use Auto-Wake-Up By RTC
+    #define _AUTO_RTC_PERIOD_WAKE_UP_With_DSG_MOS_OFF_      ( 0 )   //Default : 0 (No Use), 1 : use Auto-Wake-Up By RTC with DSG off
+    #define _AUTO_RTC_PERIOD_WAKE_UP_With_CHG_MOS_OFF_      ( 0 )   //Default : 0 (No Use), 1 : use Auto-Wake-Up By RTC with CHG off
+    #define _ENABLE_NTC_2_DETECTION_                        ( 1 )   //Default : 0 (No Use), 1 : use second NTC (NTC2) to detect Temperature
+    #define _LED_Control_Reverse_With_Lo_LEVEL_Turn_ON_     ( 1 )   //Default : 0:(normal: output Hi=>Turn on), 1:(reverse: output Lo=>Turn on)
+    #define _LED_BackLight_Control_                         ( 0 )   //Default : 0:(no use back-light function), 1:(use back-light function)
+    #define _Enable_Coulomb_Counter_FCC_RM_                 ( 1 )   //Default : 0 (disable), 1 : enable
+    #define _Capacity_Showing_Use_Coulomb_Counter_          ( 1 )   //Default : 0 (use Capacity Table), 1 : enable (use Coulomb_Counter for Capacity showing)
+    #define _Capacity_Showing_Use_Voltage_                  ( 0 )   // 0:(use Capacity Table), 1:(use pack Voltage For Capacity) ==> base on _Capacity_Showing_Use_Voltage_Table_ is enabled
+    #define _Dynamic_UVP_With_Temperature_                  ( 1 )   // 0:(use one UVP Voltage), 1:(use different pack Voltage For Protection base on different temperature)
+    #define _System_Life_Ending_Enable_                     ( 0 )   // 0:(disable), 1:(enable life end at setting month, and turn off CHG mos)
+    #define _DSG_Mos_Control_Reversed_Lo_Turn_ON_           ( 0 )   //Default : 0:(normal: Hi=>Turn on), 1:(reversed: Lo=>Turn on)
+    #define _CHG_Mos_Control_Reversed_Lo_Turn_ON_           ( 0 )   //Default : 0:(normal: Hi=>Turn on), 1:(reversed: Lo=>Turn on)
+    #define _Set_UART_AS_Half_Duplex_Transmission_          ( 0 )   //0:(Default)(simple Transmission with two wires conection, 1:(Half_Duplex_Transmission with one-wire connecton)
+    #define _ENABLE_FOR_Monitoring_HW_PIC_STATUS_           ( 1 )   //0:(Default)(disable monitoring PIC HW signal), 1:(enable monitoring PIC HW signal)
+    #define _Simulate_Cell_Voltages_                        ( 0 )   //0:(Default)(disable Simulate Cell Voltages), 1:(enable Simulate Cell Voltages)
+
+#elif defined(_Span1_60200_X_B_16S8P5LEDLowDrv_SDI26FM_SW1_NTC2_Aslp_Wup_CC_DUVP_R60C620D82_)
+    #include "Prg_Parser_UserDefine_Span1_60200_X_B_16S8P5LEDLowDrv_SDI26FM_SW1_NTC2_Aslp_Wup_CC_DUVP_R60C620D82_V27.h"
+    //#include "Prg_Parser_UserDefine_Pan_LYUS1_48234_X_13S9PN3LED_SDI26FM_SW1_Aslp_Wup_CC_DUVP_R136C220D68_V26.h"
+    #define _NTC_MITSUBISHI_H_TYPE_3413_        // Can be selected: _NTC_MITSUBISHI_H_TYPE_3413_, _NTC_MITSUBISHI_J_TYPE_3450_(¤p¶Â¨§)
+    #define _CELL_SERIES_NUMBER_        ( 16 )  // Can be selected: 7, 10, 13
+    #define _CELL_PARALLEL_NUMBER_      ( 8 )   // Can be selected: 2, 3, 4, 5, 6, 7
+    #define _CELL_TYPE_SDI_26F_                 // Can be selected: _CELL_TYPE_SDI_29E_,_CELL_TYPE_LGC_26B4_, _CELL_TYPE_SDI_26H_, _CELL_TYPE_SDI_22H_, _CELL_TYPE_SDI_26F_, _CELL_TYPE_SDI_22FM_
+    #define _LED_DISPLAY_NUMBERS_       ( 5 )   // Can be Selected: 0, 3, 4, 5
+    #define _Use_Usart_Port_Mapping_    ( 0 )   // Can be Selected: 0(use default port), 1(mapping to other port)
+    #define _SW_Button_LEVEL_Reverse_   ( 1 )   // Can be Selected: 0(normal=> press=Hi, release=Lo), 1((reverse=> press=Lo, release=Hi))
+    #define _Enable_SW_Button_Only_For_Turn_ON_OFF_System_  ( 0 )   //when product is No LED for Capacity, use this can Turn on/off DSG Mos
+    #define _Enable_MagneticReedSW_AsButton_Only_For_RxTx_  ( 0 )   //when product is no SW Button and No LED for Capacity, use this for only communication
+    #define _ONE_WIRE_UART_BUTTON_TEMPORARY_SET_ENABLE_     ( 1 )   //Default : 0 (disable, enable by cmd), Set enable by button
+    #define _COMMUNICATION_USE_PHOTO_ISOALTOR_              ( 1 )   //Default : 0 (None or Normal Iso), 1 : use photo isolator
+    #define _USE_TOUCH_KEY_WITH_LED_                        ( 0 )   //Default : 0 (No Use), 1 : use Touch key with Breathing Led
+    #define _USE_USB_POWER_OUTPUT_MODULE_                   ( 0 )   //Default : 0 (No Use), 1 : use USB Power Output Module
+    #define _AUTO_ENTER_SLEEPING_MODE_PREASS_TO_WAKE_UP_    ( 1 )   //Default : 0 (No Use), 1 : use Auto-enter sleeping mode
+    #define _AUTO_RTC_PERIOD_WAKE_UP_FOR_AUTO_SLEEPING_     ( 1 )   //Default : 0 (No Use), 1 : use Auto-Wake-Up By RTC
+    #define _AUTO_RTC_PERIOD_WAKE_UP_With_DSG_MOS_OFF_      ( 0 )   //Default : 0 (No Use), 1 : use Auto-Wake-Up By RTC with DSG off
+    #define _AUTO_RTC_PERIOD_WAKE_UP_With_CHG_MOS_OFF_      ( 0 )   //Default : 0 (No Use), 1 : use Auto-Wake-Up By RTC with CHG off
+    #define _ENABLE_NTC_2_DETECTION_                        ( 1 )   //Default : 0 (No Use), 1 : use second NTC (NTC2) to detect Temperature
+    #define _LED_Control_Reverse_With_Lo_LEVEL_Turn_ON_     ( 1 )   //Default : 0:(normal: output Hi=>Turn on), 1:(reverse: output Lo=>Turn on)
+    #define _LED_BackLight_Control_                         ( 0 )   //Default : 0:(no use back-light function), 1:(use back-light function)
+    #define _Enable_Coulomb_Counter_FCC_RM_                 ( 1 )   //Default : 0 (disable), 1 : enable
+    #define _Capacity_Showing_Use_Coulomb_Counter_          ( 1 )   //Default : 0 (use Capacity Table), 1 : enable (use Coulomb_Counter for Capacity showing)
+    #define _Capacity_Showing_Use_Voltage_                  ( 0 )   // 0:(use Capacity Table), 1:(use pack Voltage For Capacity) ==> base on _Capacity_Showing_Use_Voltage_Table_ is enabled
+    #define _Dynamic_UVP_With_Temperature_                  ( 1 )   // 0:(use one UVP Voltage), 1:(use different pack Voltage For Protection base on different temperature)
+    #define _System_Life_Ending_Enable_                     ( 0 )   // 0:(disable), 1:(enable life end at setting month, and turn off CHG mos)
+    #define _DSG_Mos_Control_Reversed_Lo_Turn_ON_           ( 0 )   //Default : 0:(normal: Hi=>Turn on), 1:(reversed: Lo=>Turn on)
+    #define _CHG_Mos_Control_Reversed_Lo_Turn_ON_           ( 0 )   //Default : 0:(normal: Hi=>Turn on), 1:(reversed: Lo=>Turn on)
+    #define _Set_UART_AS_Half_Duplex_Transmission_          ( 0 )   //0:(Default)(simple Transmission with two wires conection, 1:(Half_Duplex_Transmission with one-wire connecton)
+    #define _ENABLE_FOR_Monitoring_HW_PIC_STATUS_           ( 1 )   //0:(Default)(disable monitoring PIC HW signal), 1:(enable monitoring PIC HW signal)
+    #define _Simulate_Cell_Voltages_                        ( 0 )   //0:(Default)(disable Simulate Cell Voltages), 1:(enable Simulate Cell Voltages)
+
+#elif defined(_Ares_HM_36088_C_10S4P5LEDLowDrv_SDI22FM_SW1_Aslp_Wup_Blight_CC_DUVP_R136C220D82_)
     #include "Prg_Parser_UserDefine_Ares_HM_36088_C_10S4P5LEDLowDrv_SDI22FM_SW1_Aslp_Wup_Blight_CC_DUVP_R136C220D82_V26.h"
     //#include "Prg_Parser_UserDefine_Pan_BTG1645_36088_N_10S4PN4LEDLowDrv_SDI22FM_SW1_Aslp_Wup_CC_DUVP_136R_V25.h"
     #define _NTC_MITSUBISHI_H_TYPE_3413_        // Can be selected: _NTC_MITSUBISHI_H_TYPE_3413_, _NTC_MITSUBISHI_J_TYPE_3450_(¤p¶Â¨§)
@@ -5157,6 +5227,7 @@
 #elif   (_CELL_SERIES_NUMBER_ == 10)
 #elif   (_CELL_SERIES_NUMBER_ == 7)
 #elif   (_CELL_SERIES_NUMBER_ == 5)
+#elif   (_CELL_SERIES_NUMBER_ == 16)
 #else
     #error "Please select right Cell Series numbers"
 #endif
@@ -5168,7 +5239,9 @@
 #elif   (_CELL_PARALLEL_NUMBER_ == 5)
 #elif   (_CELL_PARALLEL_NUMBER_ == 6)
 #elif   (_CELL_PARALLEL_NUMBER_ == 7)
+#elif   (_CELL_PARALLEL_NUMBER_ == 8)
 #elif   (_CELL_PARALLEL_NUMBER_ == 9)
+#elif   (_CELL_PARALLEL_NUMBER_ == 16)
 #else
     #error "Please select right Cell Parallel numbers"
 #endif

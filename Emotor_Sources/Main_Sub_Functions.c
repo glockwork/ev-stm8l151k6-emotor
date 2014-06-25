@@ -790,6 +790,17 @@ unsigned int Normal_Func(){
             }
 
 #endif
+
+#if (_Enable_Coulomb_Counter_FCC_RM_ == 1)
+            // by hsinmo 2014/06/05
+            // for lev assembling process failure, and causing Voltage error and FCC derating.
+            // so reset CoulombCounter at first wakeup
+            if((G_Extend_Device_Interface_Status & HasSleptOnce) == 0){
+                G_Extend_Device_Interface_Status |= HasSleptOnce;
+                InitCoulombCounterCap();
+            }
+#endif
+
             _DUI_Set_NTC_Detect_Control_Enable(DeviceOn);
             _DUI_LED_Flashing_Directly();
 

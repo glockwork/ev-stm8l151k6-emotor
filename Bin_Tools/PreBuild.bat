@@ -1,8 +1,10 @@
 rem ==================================================================================================================================================================
+%1\..\Bin_Tools\Header_Parser_For_LEVD2 %1\..\Emotor_Sources\Config_Info\UserDefine_Span2_60400_X_B_16S16P5LEDLowDrv_SDI26FM_SW1_NTC2_Aslp_Wup_CC_DUVP_R60C620D82_V27.h
+%1\..\Bin_Tools\Header_Parser_For_LEVD2 %1\..\Emotor_Sources\Config_Info\UserDefine_Span1_60200_X_B_16S8P5LEDLowDrv_SDI26FM_SW1_NTC2_Aslp_Wup_CC_DUVP_R60C620D82_V27.h
+goto process
 %1\..\Bin_Tools\Header_Parser_For_LEVD2 %1\..\Source_Codes\Config_Info\UserDefine_Ares_HM_36088_C_10S4P5LEDLowDrv_SDI22FM_SW1_Aslp_Wup_Blight_CC_DUVP_R136C220D82_V26.h
 %1\..\Bin_Tools\Header_Parser_For_LEVD2 %1\..\Source_Codes\Config_Info\UserDefine_Ares_TB290_24100_D_7S4P4LEDLowDrv_SDI26FM_SW1_Aslp_Wup_CC_DUVP_R136C220D82_V26.h
 %1\..\Bin_Tools\Header_Parser_For_LEVD2 %1\..\Source_Codes\Config_Info\UserDefine_Ares_SSHT3280_36100_N_10S4P4LEDLowDrv_SDI26FM_SW1_Aslp_Wup_CC_DUVP_R200C180D100_V26.h
-goto process
 %1\..\Bin_Tools\Header_Parser_For_LEVD2 %1\..\Source_Codes\Config_Info\UserDefine_Ares_SX_YJ_36104_D_10S4P4LEDLowDrv_SDI26FM_SW1_Aslp_Wup_CC_DUVP_R136C220D82_V26.h
 %1\..\Bin_Tools\Header_Parser_For_LEVD2 %1\..\Source_Codes\Config_Info\UserDefine_Pan_ST1_36104_D_10S4P4LEDLowDrv_SDI26FM_SW1_Aslp_Wup_CC_DUVP_R136C220D82_V26.h
 %1\..\Bin_Tools\Header_Parser_For_LEVD2 %1\..\Source_Codes\Config_Info\UserDefine_Pan_LYUS1_48234_X_13S9PN3LED_SDI26FM_SW1_Aslp_Wup_CC_DUVP_R136C220D68_V26.h
@@ -205,13 +207,13 @@ rem %1\..\Bin_Tools\Header_Parser_For_LEVD2 %1\..\Source_Codes\Config_Info\User_
 
 :process
 rem del parser_files.txt
-rem dir /b %1\..\Source_Codes\Config_Info\User_Define*.h >> parser_files.txt
+rem dir /b %1\..\Emotor_Sources\Config_Info\User_Define*.h >> parser_files.txt
 rem type parser_files.txt
-rem for /f %a in (parser_files.txt) do echo " %1\..\Bin_Tools\Header_Parser_For_LEVD2 %1\..\Source_Codes\Config_Info\%a "
+rem for /f %a in (parser_files.txt) do echo " %1\..\Bin_Tools\Header_Parser_For_LEVD2 %1\..\Emotor_Sources\Config_Info\%a "
 rem for/f %9 in (parser_files.txt) do echo "aaa" %9
 rem del parser_files.txt
 
-move/y %1\..\Source_Codes\Config_Info\Prg_Parser_*.h %1\..\Source_Codes\Config_Info\include
-move/y %1\..\Source_Codes\Config_Info\_UserDefine*.hex %1\..\Source_Codes\Config_Info\HEX_files
+move/y %1\..\Emotor_Sources\Config_Info\Prg_Parser_*.h %1\..\Emotor_Sources\Config_Info\include
+move/y %1\..\Emotor_Sources\Config_Info\_UserDefine*.hex %1\..\Emotor_Sources\Config_Info\HEX_files
 
 

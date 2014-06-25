@@ -96,13 +96,13 @@ extern unsigned char g_Recording_SystemActivatedMinutes;
 #define fLOW_TEMP1_IN_DSG_ACT           (0x0001)    //
 #define fLOW_TEMP2_IN_DSG_ACT           (0x0002)    //
 #define fLOW_TEMP3_IN_DSG_ACT           (0x0004)    //
-//#define fCHG_FASTER_CHARGING            (0x0008)    //
-//#define fCHARGING_IN_HIGH_TEMP          (0x0010)
-//#define fCHARGING_IN_LOW_TEMP           (0x0020)    //
-//#define fSTORE_IN_LOW_TEMP1             (0x0040)    //
-//#define fSTORE_IN_LOW_TEMP2             (0x0080)    //
+#define fDSG_Record_Current_1           (0x0008)    //
+#define fDSG_Record_Current_2           (0x0010)
+#define fDSG_Record_Current_3           (0x0020)    //
+#define fDSG_Record_Current_4           (0x0040)    //
+#define fDSG_Record_Current_5           (0x0080)    //
 ////Hight byte
-//#define fSTORE_IN_LOW_TEMP3             (0x0100)    //
+#define fDSG_Record_Current_6           (0x0100)    //
 //#define fSTORE_IN_LOW_TEMP4             (0x0200)    //
 //#define fSTORE_IN_HIGH_TEMP1            (0x0400)    //
 //#define fSTORE_IN_HIGH_TEMP2            (0x0800)    //
@@ -119,6 +119,7 @@ extern unsigned char g_Recording_SystemActivatedMinutes;
 void CoulombCounterForOneSecond(void);
 void Updated3rdTrackingRecordInfoForPolling();
 void CountAndUpdated3rdTrackingRecordInfo_in_1_min();
+void CountAndUpdated4rdTrackingRecordInfo_in_6_sec();
 
 /********************************************************************************
 * Golbal Variable																*
@@ -143,6 +144,7 @@ static unsigned long    sg_DSG_ADC_AccumulatingQ_RECORD;
 static unsigned int     sg_Recording_3rd_Status;
 static unsigned int     sg_Recording_3rd_1_Min_Counter;
 static unsigned int     sg_Recording_4th_Status;
+static unsigned int     sg_Recording_4rd_6_sec_Counter;
 
 ////////////////////////////////////////////////////////////////////////////////
 static unsigned int NTC_ADC_MAX_Lower_Temp;
@@ -358,7 +360,7 @@ void SysInfo_init(){
     sg_Recording_3rd_Status = 0;
     sg_Recording_3rd_1_Min_Counter = 0;
     sg_Recording_4th_Status = 0;
-
+    sg_Recording_4rd_6_sec_Counter = 0;
 
     sg_STATIC_OVER_VOLTAGE_HOURS_TIMES_COUNT = 0;
     sg_CHG_OVER_VOLTAGE_MINUTES_TIMES_COUNT = 0;
@@ -401,6 +403,14 @@ void SysInfo_init(){
 
     G_Last_ChargingTimes_Minutes = Last_ChargingTimes_Minutes_RECORD_EEPROM;
     G_Max_ChargingTimes_Minutes = Max_ChargingTimes_Minutes_RECORD_EEPROM;
+    /////////////////////////////////////////////////////////////////////////////
+
+    G_ul_RECORDING_ADC_DSG_OVER_CURRENT_1_6sec = RECORDING_ADC_DSG_OVER_CURRENT_1_6SEC_EEPROM;
+    G_ul_RECORDING_ADC_DSG_OVER_CURRENT_2_6sec = RECORDING_ADC_DSG_OVER_CURRENT_2_6SEC_EEPROM;
+    G_ul_RECORDING_ADC_DSG_OVER_CURRENT_3_6sec = RECORDING_ADC_DSG_OVER_CURRENT_3_6SEC_EEPROM;
+    G_ul_RECORDING_ADC_DSG_OVER_CURRENT_4_6sec = RECORDING_ADC_DSG_OVER_CURRENT_4_6SEC_EEPROM;
+    G_ul_RECORDING_ADC_DSG_OVER_CURRENT_5_6sec = RECORDING_ADC_DSG_OVER_CURRENT_5_6SEC_EEPROM;
+    G_ul_RECORDING_ADC_DSG_OVER_CURRENT_6_6sec = RECORDING_ADC_DSG_OVER_CURRENT_6_6SEC_EEPROM;
 }
 void UpdatedSystemRecordingInfoForPolling(){
 
@@ -615,6 +625,9 @@ void Storing_Infor_To_EEPROM_By_Step(unsigned char step){
             case Storing_Count_DSG_CHG_Time_2:
                 Write_Count_DSG_CHG_TIME_2_ToEEPROM();
                 break;
+            case storing_DSG_Current_Record:
+                Write_DSG_Current_Record_ToEEPROM();
+                break;
             case Storing_Last_Step:
             default:
                 break;
@@ -679,8 +692,41 @@ void Updated3rdTrackingRecordInfoForPolling(){
             sg_Recording_3rd_Status &= ~fOVER_LOADING;
             //sg_OVER_LOADING_MINUTES_TIMES_COUNT = 0;
         }
+
+        if(G_DSG_Current_ADC > RECORDING_ADC_DSG_OVER_CURRENT_1){
+            sg_Recording_4th_Status |= fDSG_Record_Current_1;
+        }else{
+            sg_Recording_4th_Status &= ~fDSG_Record_Current_1;
+        }
+        if(G_DSG_Current_ADC > RECORDING_ADC_DSG_OVER_CURRENT_2){
+            sg_Recording_4th_Status |= fDSG_Record_Current_2;
+        }else{
+            sg_Recording_4th_Status &= ~fDSG_Record_Current_2;
+        }
+        if(G_DSG_Current_ADC > RECORDING_ADC_DSG_OVER_CURRENT_3){
+            sg_Recording_4th_Status |= fDSG_Record_Current_3;
+        }else{
+            sg_Recording_4th_Status &= ~fDSG_Record_Current_3;
+        }
+        if(G_DSG_Current_ADC > RECORDING_ADC_DSG_OVER_CURRENT_4){
+            sg_Recording_4th_Status |= fDSG_Record_Current_4;
+        }else{
+            sg_Recording_4th_Status &= ~fDSG_Record_Current_4;
+        }
+        if(G_DSG_Current_ADC > RECORDING_ADC_DSG_OVER_CURRENT_5){
+            sg_Recording_4th_Status |= fDSG_Record_Current_5;
+        }else{
+            sg_Recording_4th_Status &= ~fDSG_Record_Current_5;
+        }
+        if(G_DSG_Current_ADC > RECORDING_ADC_DSG_OVER_CURRENT_6){
+            sg_Recording_4th_Status |= fDSG_Record_Current_6;
+        }else{
+            sg_Recording_4th_Status &= ~fDSG_Record_Current_6;
+        }
+
     }else{
         sg_Recording_3rd_Status &= ~fOVER_LOADING;
+        sg_Recording_4th_Status &= ~( fDSG_Record_Current_1 + fDSG_Record_Current_2 + fDSG_Record_Current_3 + fDSG_Record_Current_4 + fDSG_Record_Current_5 + fDSG_Record_Current_6 );
         //sg_OVER_LOADING_MINUTES_TIMES_COUNT = 0;
     }
 
@@ -833,6 +879,61 @@ void Updated3rdTrackingRecordInfoForPolling(){
     }
     //1 miuntes Recording data time : (section stop)
     ////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    //6 seconds Recording data time : (section start)
+    sg_Recording_4rd_6_sec_Counter++;
+    if(sg_Recording_4rd_6_sec_Counter >= _6_sec_CycleTimes_For_RecordingData){
+        sg_Recording_4rd_6_sec_Counter = 0;
+        CountAndUpdated4rdTrackingRecordInfo_in_6_sec();
+    }else{
+        //sg_Recording_4rd_6_sec_Counter++;
+    }
+    //6 seconds Recording data time : (section stop)
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+}
+void CountAndUpdated4rdTrackingRecordInfo_in_6_sec(){
+    ///////////////////////////////////////////////////////////////////
+    if(sg_Recording_4th_Status & fDSG_Record_Current_1){
+        G_ul_RECORDING_ADC_DSG_OVER_CURRENT_1_6sec++;
+        if(G_ul_RECORDING_ADC_DSG_OVER_CURRENT_1_6sec >= ULONG_MAX_VALUES_TH){
+            G_ul_RECORDING_ADC_DSG_OVER_CURRENT_1_6sec = ULONG_MAX_VALUES_TH;
+        }
+    }
+    ///////////////////////////////////////////////////////////////////
+    if(sg_Recording_4th_Status & fDSG_Record_Current_2){
+        G_ul_RECORDING_ADC_DSG_OVER_CURRENT_2_6sec++;
+        if(G_ul_RECORDING_ADC_DSG_OVER_CURRENT_2_6sec >= ULONG_MAX_VALUES_TH){
+            G_ul_RECORDING_ADC_DSG_OVER_CURRENT_2_6sec = ULONG_MAX_VALUES_TH;
+        }
+    }
+    ///////////////////////////////////////////////////////////////////
+    if(sg_Recording_4th_Status & fDSG_Record_Current_3){
+        G_ul_RECORDING_ADC_DSG_OVER_CURRENT_3_6sec++;
+        if(G_ul_RECORDING_ADC_DSG_OVER_CURRENT_3_6sec >= ULONG_MAX_VALUES_TH){
+            G_ul_RECORDING_ADC_DSG_OVER_CURRENT_3_6sec = ULONG_MAX_VALUES_TH;
+        }
+    }
+    ///////////////////////////////////////////////////////////////////
+    if(sg_Recording_4th_Status & fDSG_Record_Current_4){
+        G_ul_RECORDING_ADC_DSG_OVER_CURRENT_4_6sec++;
+        if(G_ul_RECORDING_ADC_DSG_OVER_CURRENT_4_6sec >= ULONG_MAX_VALUES_TH){
+            G_ul_RECORDING_ADC_DSG_OVER_CURRENT_4_6sec = ULONG_MAX_VALUES_TH;
+        }
+    }
+    ///////////////////////////////////////////////////////////////////
+    if(sg_Recording_4th_Status & fDSG_Record_Current_5){
+        G_ul_RECORDING_ADC_DSG_OVER_CURRENT_5_6sec++;
+        if(G_ul_RECORDING_ADC_DSG_OVER_CURRENT_5_6sec >= ULONG_MAX_VALUES_TH){
+            G_ul_RECORDING_ADC_DSG_OVER_CURRENT_5_6sec = ULONG_MAX_VALUES_TH;
+        }
+    }
+    ///////////////////////////////////////////////////////////////////
+    if(sg_Recording_4th_Status & fDSG_Record_Current_6){
+        G_ul_RECORDING_ADC_DSG_OVER_CURRENT_6_6sec++;
+        if(G_ul_RECORDING_ADC_DSG_OVER_CURRENT_6_6sec >= ULONG_MAX_VALUES_TH){
+            G_ul_RECORDING_ADC_DSG_OVER_CURRENT_6_6sec = ULONG_MAX_VALUES_TH;
+        }
+    }
 }
 
 
@@ -1829,7 +1930,98 @@ void Write_Count_DSG_CHG_TIME_2_ToEEPROM(){
             }
         }while(flag == Func_Fail);
     }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // DSG Loading current record
+    if(G_ul_RECORDING_ADC_DSG_OVER_CURRENT_1_6sec != RECORDING_ADC_DSG_OVER_CURRENT_1_6SEC_EEPROM){
+        ////////////////////////////////////////////////////////////////////////////
+        //write word data () to eeprom
+        data = G_ul_RECORDING_ADC_DSG_OVER_CURRENT_1_6sec;
+        count = 0;
+        do{
+            flag = _DUI_EEPROM_WriteDoubleWord(RECORDING_ADC_DSG_OVER_CURRENT_1_6SEC_EEPROM_Offset, data);
+            count++;
+            if(count > EEPROMWriteRetry){
+                break;
+            }
+        }while(flag == Func_Fail);
+    }
+    if(G_ul_RECORDING_ADC_DSG_OVER_CURRENT_2_6sec != RECORDING_ADC_DSG_OVER_CURRENT_2_6SEC_EEPROM){
+        ////////////////////////////////////////////////////////////////////////////
+        //write word data () to eeprom
+        data = G_ul_RECORDING_ADC_DSG_OVER_CURRENT_2_6sec;
+        count = 0;
+        do{
+            flag = _DUI_EEPROM_WriteDoubleWord(RECORDING_ADC_DSG_OVER_CURRENT_2_6SEC_EEPROM_Offset, data);
+            count++;
+            if(count > EEPROMWriteRetry){
+                break;
+            }
+        }while(flag == Func_Fail);
+    }
+    if(G_ul_RECORDING_ADC_DSG_OVER_CURRENT_3_6sec != RECORDING_ADC_DSG_OVER_CURRENT_3_6SEC_EEPROM){
+        ////////////////////////////////////////////////////////////////////////////
+        //write word data () to eeprom
+        data = G_ul_RECORDING_ADC_DSG_OVER_CURRENT_3_6sec;
+        count = 0;
+        do{
+            flag = _DUI_EEPROM_WriteDoubleWord(RECORDING_ADC_DSG_OVER_CURRENT_3_6SEC_EEPROM_Offset, data);
+            count++;
+            if(count > EEPROMWriteRetry){
+                break;
+            }
+        }while(flag == Func_Fail);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
+void Write_DSG_Current_Record_ToEEPROM(){
+    unsigned char count;
+    unsigned char flag;
+
+    unsigned long data;
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // DSG Loading current record
+    if(G_ul_RECORDING_ADC_DSG_OVER_CURRENT_4_6sec != RECORDING_ADC_DSG_OVER_CURRENT_4_6SEC_EEPROM){
+        ////////////////////////////////////////////////////////////////////////////
+        //write word data () to eeprom
+        data = G_ul_RECORDING_ADC_DSG_OVER_CURRENT_4_6sec;
+        count = 0;
+        do{
+            flag = _DUI_EEPROM_WriteDoubleWord(RECORDING_ADC_DSG_OVER_CURRENT_4_6SEC_EEPROM_Offset, data);
+            count++;
+            if(count > EEPROMWriteRetry){
+                break;
+}
+        }while(flag == Func_Fail);
+    }
+    if(G_ul_RECORDING_ADC_DSG_OVER_CURRENT_5_6sec != RECORDING_ADC_DSG_OVER_CURRENT_5_6SEC_EEPROM){
+        ////////////////////////////////////////////////////////////////////////////
+        //write word data () to eeprom
+        data = G_ul_RECORDING_ADC_DSG_OVER_CURRENT_5_6sec;
+        count = 0;
+        do{
+            flag = _DUI_EEPROM_WriteDoubleWord(RECORDING_ADC_DSG_OVER_CURRENT_5_6SEC_EEPROM_Offset, data);
+            count++;
+            if(count > EEPROMWriteRetry){
+                break;
+            }
+        }while(flag == Func_Fail);
+    }
+    if(G_ul_RECORDING_ADC_DSG_OVER_CURRENT_6_6sec != RECORDING_ADC_DSG_OVER_CURRENT_6_6SEC_EEPROM){
+        ////////////////////////////////////////////////////////////////////////////
+        //write word data () to eeprom
+        data = G_ul_RECORDING_ADC_DSG_OVER_CURRENT_6_6sec;
+        count = 0;
+        do{
+            flag = _DUI_EEPROM_WriteDoubleWord(RECORDING_ADC_DSG_OVER_CURRENT_6_6SEC_EEPROM_Offset, data);
+            count++;
+            if(count > EEPROMWriteRetry){
+                break;
+            }
+        }while(flag == Func_Fail);
+    }
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -68,8 +68,8 @@ static unsigned char CHG_OC_Counter;
 static unsigned char COC_Repeat_Counter;
 static unsigned char Battery_OV_Counter;
 static unsigned char Battery_UV_Counter;
-static unsigned char DSG_Low_OT_Counter;
-static unsigned char DSG_High_OT_Counter;
+static unsigned int DSG_Low_OT_Counter;
+static unsigned int DSG_High_OT_Counter;
 static unsigned char CHG_OT_Counter;
 static unsigned char UT_Counter;
 
@@ -575,6 +575,9 @@ void Protection_Polling_Function(void){
     if((G_Module_Status & Module_D_OC) && (G_Module_Function_Status & DOC_COUNTING_FINISH)){
         G_Module_Function_Status &= ~DOC_COUNTING_FINISH;
         G_Module_Status &= ~Module_D_OC;
+    }else if((G_Module_Status & Module_D_OC) && (G_Module_Status & Current_Dir_CHG)){
+        G_Module_Function_Status &= ~DOC_COUNTING_FINISH;
+        G_Module_Status &= ~Module_D_OC;
     }
     /////////////////////////////////////////////////////////////////////////////////////////////
     //COC Release and clear Flag
@@ -582,6 +585,10 @@ void Protection_Polling_Function(void){
         G_Module_Function_Status &= ~COC_COUNTING_FINISH;
         G_Module_Status &= ~Module_C_OC;
         G_Module_Function_Status |= COC_RELEASE_FOR_REPEATED_CHECK;
+    }else if((G_Module_Status & Module_C_OC) && (G_Module_Status & Current_Dir_DSG)){
+        G_Module_Function_Status &= ~COC_COUNTING_FINISH;
+        G_Module_Status &= ~Module_C_OC;
+        G_Module_Function_Status &= ~COC_RELEASE_FOR_REPEATED_CHECK;
     }
 
 
@@ -651,6 +658,9 @@ void Protection_Polling_Function(void){
     /////////////////////////////////////////////////////////////////////////////////////////////
     // release Battery OV if it's Battery OV
     if((G_Module_Status & Module_BAT_OV) && G_VBAT_ADC < ADC_BATTERY_OV_RELEASE){
+        G_Module_Status &= ~Module_BAT_OV;
+        Battery_OV_Counter = 0;
+    }else if((G_Module_Status & Module_BAT_OV) && (G_Module_Status & Current_Dir_DSG)){
         G_Module_Status &= ~Module_BAT_OV;
         Battery_OV_Counter = 0;
     }
@@ -840,6 +850,7 @@ void Protection_Polling_Function(void){
     if(((G_Module_Function_Status & USE_DSG_HIGH_OT_SETTING)==0) && (G_Module_Function_Status & DSG_HIGH_CURRENT_FOR_OT)){
       G_Module_Function_Status |= USE_DSG_HIGH_OT_SETTING;
     }
+    //若使用高電流OTP設定，當電流下降時，溫度已超過ota, 那還是持續使用高電流OTP設定
     if((G_Module_Function_Status & USE_DSG_HIGH_OT_SETTING) &&((G_Module_Function_Status & DSG_HIGH_CURRENT_FOR_OT)==0)){
         if((G_Module_Function_Status & (DSG_LOW_OTA + DSG_HIGH_OTA)) == 0){
             G_Module_Function_Status &= ~USE_DSG_HIGH_OT_SETTING;
@@ -970,49 +981,74 @@ void Protection_Polling_Function(void){
     ///////////////////////////////////////////////////////////////////////////
 #if (_AUTO_ENTER_SLEEPING_MODE_PREASS_TO_WAKE_UP_ == 1)
     if((G_Module_Function_Status & Auto_Sleeping_Entry)== 0){
-        if(G_Extend_Device_Interface_Status & Force_CHG_MOS_OFF){
+        if(G_Module_Status & Module_DSG_OT){
             _DUI_Set_CHG_MosFET(DeviceOff);
-        }else{
-            //////////////////////////////////////////////////////////////////////////////
-            // MosFet control and Protection release
-            //////////////////////////////////////////////////////////////////////////////
-            // CHG MosFet control and Protection release
-            if(G_Module_Status & (Module_C_OC + Module_BAT_OV + Module_CHG_OT + Module_UT) || (G_Module_Function_Status & Module_C_OC_LOCK)){
-                _DUI_Set_CHG_MosFET(DeviceOff);
-            }// if CHG protection
-            else{
-                // normal set CHG on without any alarm
-                // when first time charge, check valid charging temperature
-                if((G_Module_Status & Current_Dir_DSG) || (G_Module_Status & Current_Dir_Static)){
-                    if(G_Module_Function_Status & INITIAL_CHARGING_TEMP_RANGE){
-                        _DUI_Set_CHG_MosFET(DeviceOn);
-                    }else{
-                        _DUI_Set_CHG_MosFET(DeviceOff);
-                    }
-                }else{
-                    _DUI_Set_CHG_MosFET(DeviceOn);
-                }
-            }
-        }
-        if(G_Extend_Device_Interface_Status & Force_DSG_MOS_OFF){
+            _DUI_Set_DSG_MosFET(DeviceOff);
+        }else if((G_Module_Status & Module_UT) && ((G_Module_Function_Status & INITIAL_CHARGING_TEMP_RANGE)==0)){
+            _DUI_Set_CHG_MosFET(DeviceOff);
             _DUI_Set_DSG_MosFET(DeviceOff);
         }else{
-            //////////////////////////////////////////////////////////////////////////////
-            // DSG MosFet control and Protection release
-            if(G_Module_Function_Status & SW_PRESS_FOR_TURN_OFF_DSG){
-                _DUI_Set_DSG_MosFET(DeviceOff);
-            }else{
-                if((G_Module_Status & (Module_D_OC + Module_BAT_UV + Module_DSG_OT))){
-                    _DUI_Set_DSG_MosFET(DeviceOff);
+                if(G_Extend_Device_Interface_Status & Force_CHG_MOS_OFF){
+                    _DUI_Set_CHG_MosFET(DeviceOff);
+                    G_Extend_Device_Interface_Status |= SET_CHG_MOS_OFF;
                 }else{
-                    _DUI_Set_DSG_MosFET(DeviceOn);
-                }
-            }
+                    //////////////////////////////////////////////////////////////////////////////
+                    // MosFet control and Protection release
+                    //////////////////////////////////////////////////////////////////////////////
+                    // CHG MosFet control and Protection release
+                    if(G_Module_Status & (Module_C_OC + Module_BAT_OV + Module_CHG_OT + Module_UT) || (G_Module_Function_Status & Module_C_OC_LOCK)){
+                        if((G_Module_Status & (Module_CHG_OT + Module_UT)) && (G_Module_Status & Current_Dir_DSG)){
+                            _DUI_Set_CHG_MosFET(DeviceOn);
+                        }else{
+                            _DUI_Set_CHG_MosFET(DeviceOff);
+                            G_Extend_Device_Interface_Status |= SET_CHG_MOS_OFF;
+                        }
+                    }// if CHG protection
+                    else{
+                        // normal set CHG on without any alarm
+                        // when first time charge, check valid charging temperature
+                        if((G_Module_Status & Current_Dir_DSG) || (G_Module_Status & Current_Dir_Static)){
+                            if(G_Module_Function_Status & INITIAL_CHARGING_TEMP_RANGE){
+                                _DUI_Set_CHG_MosFET(DeviceOn);
+                                G_Extend_Device_Interface_Status &= ~SET_CHG_MOS_OFF;
+                            }
+//                            else{
+//                                _DUI_Set_CHG_MosFET(DeviceOff);
+//                                G_Extend_Device_Interface_Status |= SET_CHG_MOS_OFF;
+//                            }
+                        }else{
+                            _DUI_Set_CHG_MosFET(DeviceOn);
+                            G_Extend_Device_Interface_Status &= ~SET_CHG_MOS_OFF;
+                        }
+                    }
+                }//if(G_Extend_Device_Interface_Status & Force_CHG_MOS_OFF) -else
+                if(G_Extend_Device_Interface_Status & Force_DSG_MOS_OFF){
+                    _DUI_Set_DSG_MosFET(DeviceOff);
+                    G_Extend_Device_Interface_Status |= SET_DSG_MOS_OFF;
+                }else{
+                    //////////////////////////////////////////////////////////////////////////////
+                    // DSG MosFet control and Protection release
+                    if(G_Module_Function_Status & SW_PRESS_FOR_TURN_OFF_DSG){
+                        _DUI_Set_DSG_MosFET(DeviceOff);
+                        G_Extend_Device_Interface_Status |= SET_DSG_MOS_OFF;
+                    }else{
+                        if((G_Module_Status & (Module_D_OC + Module_BAT_UV + Module_DSG_OT))){
+                            _DUI_Set_DSG_MosFET(DeviceOff);
+                            G_Extend_Device_Interface_Status |= SET_DSG_MOS_OFF;
+                        }else{
+                            _DUI_Set_DSG_MosFET(DeviceOn);
+                            G_Extend_Device_Interface_Status &= ~SET_DSG_MOS_OFF;
+                        }
+                    }
+                }//if(G_Extend_Device_Interface_Status & Force_DSG_MOS_OFF) -else
         }
+
     }else{
 #if (_AUTO_RTC_PERIOD_WAKE_UP_FOR_AUTO_SLEEPING_ == 0)
         _DUI_Set_DSG_MosFET(DeviceOff);
         _DUI_Set_CHG_MosFET(DeviceOff);
+        G_Extend_Device_Interface_Status |= SET_CHG_MOS_OFF;
+        G_Extend_Device_Interface_Status |= SET_DSG_MOS_OFF;
 #endif
     }
 #else
